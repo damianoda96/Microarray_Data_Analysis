@@ -10,11 +10,18 @@ with open("ALL_vs_AML_train_set_38_sorted.res", "r") as file:
 		data_table.append(cells)
 
 data_frame = pd.DataFrame(data_table)
-data_frame.columns = data_table[0]
+data_frame.columns = data_table[0] # set row zero as our column names
 data_frame = data_frame.drop(data_frame.index[[0,1,2]]) # drop all unnecessary rows
 
 # TODO:: REMOVE THE FOLLOWING FROM OUR DATA SET
 # - (endogenous) control genes
+
+column_name_list = list(data_frame) # get a list of our column headers
+
+# below removes all rows that contain an 'A'
+
+data_frame = data_frame[~(data_frame[column_name_list] == 'A').any(axis=1)]
+
 # - genes with A's across the experiments
 # - genes with less than two fold change across the experiments (max/min <2);
 # TODO:: REPLACE EXPR VALUES BELIOW THRESHHOLD WITH THRESHHOLD VALUE
