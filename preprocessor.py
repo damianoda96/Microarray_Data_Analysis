@@ -48,7 +48,5 @@ del data_frame['Description'] # delete description column as it is uneccessary
 del data_frame[''] # drop all columns with no headers (will elimate p's)
 
 data_frame.to_csv('training_data.csv', index=False) # export csv of data
-
-# TODO: remove rows as stated by the project instructions
 	
 		
