@@ -37,10 +37,6 @@ data_frame = data_frame[~data_frame.Description.str.contains("endogenous control
 # TODO:: remove genes with less than two fold change across the experiments (max/min <2);
 # (not sure what this means yet)
 
-# drop all columns with no headers (will elimate p's)
-
-#data_frame = data_frame[data_frame.columns.dropna()]
-
 column_name_list.remove("Description")
 exp_list = column_name_list
 exp_list.remove("Accession")
@@ -49,6 +45,7 @@ for i in exp_list:
 		exp_list.remove(i)
 
 del data_frame['Description'] # delete description column as it is uneccessary
+del data_frame[''] # drop all columns with no headers (will elimate p's)
 
 data_frame.to_csv('training_data.csv', index=False) # export csv of data
 
