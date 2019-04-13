@@ -5,7 +5,10 @@ data_table = []
 
 THRESHOLD = 20
 
-with open("ALL_vs_AML_train_set_38_sorted.res", "r") as file:
+filename = input("Input the filename of data you want to preprocess: ")
+output_filename = input("Input the filename of the output file: ")
+
+with open(filename, "r") as file:
 	for line in file:
 		cells = line.split("\t")
 		data_table.append(cells)
@@ -47,6 +50,6 @@ for i in exp_list:
 del data_frame['Description'] # delete description column as it is uneccessary
 del data_frame[''] # drop all columns with no headers (will elimate p's)
 
-data_frame.to_csv('training_data.csv', index=False) # export csv of data
+data_frame.to_csv(output_filename, index=False) # export csv of data
 	
 		
