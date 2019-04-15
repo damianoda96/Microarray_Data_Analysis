@@ -10,10 +10,11 @@ training_labels = list(training_data)
 training_labels.remove("Accession") # Remove unneccesary columns
 training_labels.remove("P-value")
 
-#testing_data = pd.read_csv("")
-#testing_labels = list(testing_data)
+testing_data = pd.read_csv("testing_data_top_50_pvals.csv")
+testing_labels = list(testing_data)
+training_labels.remove("Accession") # Remove unneccesary columns
+training_labels.remove("P-value")
 
-print(training_labels)
 
 # model = KNeighborsClassifier(n_neighbors = 3)
 
