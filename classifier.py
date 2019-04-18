@@ -44,14 +44,22 @@ y_train = training_data['target']
 X_test = testing_data[testing_features]
 y_test = testing_data['target']
 
-classifier = KNeighborsClassifier(n_neighbors = 5)
+classifier = KNeighborsClassifier(algorithm='auto', leaf_size=30,
+                           metric='minkowski', metric_params=None, n_jobs=3,
+                           n_neighbors=1, p=2, weights='uniform')
 
 classifier.fit(X_train, y_train)
 
 # Predict Output
 
-predicted = classifier.predict(X_train)
+train_predicted = classifier.predict(X_train)
 
-print("Predicted:",predicted)
+print("\nTraining Predictions: ", train_predicted)
+print("Test Accuracy:", accuracy_score(y_train, train_predicted))
 
-print("Accuracy:", accuracy_score(y_train, predicted))
+test_predicted = classifier.predict(X_test)
+
+print("\nTest Predictions:", test_predicted)
+print("Test Accuracy:", accuracy_score(y_test, test_predicted))
+
+print("\n")
