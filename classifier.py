@@ -14,21 +14,25 @@ for i in range(len(labels)):
 # __________ READ PREPROCESSED TRAINING DATA INTO DATAFRAME ____________
 
 training_data = pd.read_csv("training_data_top_50_pvals.csv")
-#training_labels.remove("Accession") # Remove unneccesary columns
-#training_labels.remove("P-value")
 training_data = training_data.drop(columns=['Accession', 'P-value'], axis=1)
 training_data = training_data.transpose()
 training_features = list(training_data) # we will train on these features
 training_data['target'] = labels # this is our target column
 
-# ___________________
-
-#X_train, X_test, y_train, y_test = train_test_split(training_data, training_labels, test_size=0.0)  
-#training_data = training_data.drop(columns='P-value')
+# __________ READ PROCESSED TESTING DATA INTO DATAFRAME _____________
 
 
 
-#print(training_data)
+# ___________ BELOW WE WILL TRAIN ON THE ABOVE FEATURES AND TARGET _____
+
+X_train = training_data[training_features]
+y_train = training_data['target']
+
+classifier = KNeighborsClassifier(algorithm='auto', n_neighbors = 5)
+
+classifier.fit(X_train, y_train)
+
+
 
 #training_data = pd.to_numeric(training_labels, errors='ignore')
 
