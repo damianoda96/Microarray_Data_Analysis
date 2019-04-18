@@ -28,6 +28,15 @@ training_data = training_data.transpose()
 training_features = list(training_data) # we will train on these features
 training_data['target'] = training_labels # this is our target column
 
+# _________ BELOW HERE IS AN ALTERNATIVE TRAINING FILE WITH ALL ROWS,
+# --------- NOT JUST TOP 50 GENES ----------------------------------
+
+training_data_all = pd.read_csv("training_data_all.csv")
+training_data_all = training_data_all.drop(columns=['Accession'], axis=1)
+training_data_all = training_data_all.transpose()
+training_features_all = list(training_data_all) # we will train on these features
+training_data_all['target'] = training_labels
+
 # __________ READ PROCESSED TESTING DATA INTO DATAFRAME _____________
 
 testing_data = pd.read_csv("testing_data_top_50_pvals.csv")
@@ -38,11 +47,16 @@ testing_data['target'] = testing_labels
 
 # ___________ BELOW WE WILL TRAIN ON THE ABOVE FEATURES AND TARGET _____
 
+X_train_all = training_data_all[training_features_all]
+y_train_all = training_data_all['target']
+
 X_train = training_data[training_features]
 y_train = training_data['target']
 
 X_test = testing_data[testing_features]
 y_test = testing_data['target']
+
+# ____________ CREATE AND TRAIN OUR CLASSIFIER _____________
 
 classifier = KNeighborsClassifier(algorithm='auto', leaf_size=30,
                            metric='minkowski', metric_params=None, n_jobs=3,
@@ -50,7 +64,7 @@ classifier = KNeighborsClassifier(algorithm='auto', leaf_size=30,
 
 classifier.fit(X_train, y_train)
 
-# Predict Output
+# ________ GET OUTPUT METRICS _______________
 
 train_predicted = classifier.predict(X_train)
 
