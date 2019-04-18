@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 # _________ READ IN TARGET COLUMN FOR TRAINING DATA___________
 
@@ -43,9 +44,14 @@ y_train = training_data['target']
 X_test = testing_data[testing_features]
 y_test = testing_data['target']
 
-classifier = KNeighborsClassifier(algorithm='auto', n_neighbors = 5)
+classifier = KNeighborsClassifier(n_neighbors = 5)
 
 classifier.fit(X_train, y_train)
 
 # Predict Output
-#predicted = model.predict(train or test)
+
+predicted = classifier.predict(X_train)
+
+print("Predicted:",predicted)
+
+print("Accuracy:", accuracy_score(y_train, predicted))
