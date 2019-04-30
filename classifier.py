@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+from sklearn import tree
 
 # _________ READ IN TARGET COLUMN FOR TRAINING DATA___________
 
@@ -68,6 +69,8 @@ classifier.fit(X_train, y_train)
 
 train_predicted = classifier.predict(X_train)
 
+print("\n___ KNN CLASSIFICATION RESULTS ___\n")
+
 print("\nTraining Predictions: ", train_predicted)
 print("Test Accuracy:", accuracy_score(y_train, train_predicted))
 
@@ -76,4 +79,16 @@ test_predicted = classifier.predict(X_test)
 print("\nTest Predictions:", test_predicted)
 print("Test Accuracy:", accuracy_score(y_test, test_predicted))
 
+print("\n")
+
+print("___ DECISION TREE CLASSIFICATION RESULTS ___\n")
+
+c = tree.DecisionTreeClassifier(min_samples_split=2)
+
+dt = c.fit(X_train, y_train)
+
+y_pred = dt.predict(X_test)
+
+print("Test Predictions: ", y_pred)
+print("Test Accuracy:", accuracy_score(y_test, y_pred))
 print("\n")
