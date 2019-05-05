@@ -4,6 +4,10 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn import tree
+from sklearn.tree import export_graphviz
+import pydotplus
+from sklearn.externals.six import StringIO 
+from IPython.display import Image
 
 # _________ READ IN TARGET COLUMN FOR TRAINING DATA___________
 
@@ -92,3 +96,7 @@ y_pred = dt.predict(X_test)
 print("Test Predictions: ", y_pred)
 print("Test Accuracy:", accuracy_score(y_test, y_pred))
 print("\n")
+
+tree.export_graphviz(dt, feature_names=testing_features, out_file='tree.dot')
+
+
